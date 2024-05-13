@@ -16,10 +16,12 @@ public class EnterPoint : MonoBehaviour
     //New comment
 
     /*
-    Новый
-    длинный
-    комментарий
+    ГЌГ®ГўГ»Г©
+    Г¤Г«ГЁГ­Г­Г»Г©
+    ГЄГ®Г¬Г¬ГҐГ­ГІГ Г°ГЁГ©
     */
+
+    //LALALALALALALALLA
 
     void Start()
     {

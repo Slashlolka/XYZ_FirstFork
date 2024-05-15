@@ -48,24 +48,31 @@ namespace UnitBrains.Player
             ///////////////////////////////////////
             // Homework 1.4 (1st block, 4rd module)
             ///////////////////////////////////////
+
             List<Vector2Int> result = GetReachableTargets();
-            while (result.Count > 1)
+            float minDistance = float.MaxValue;
+            for (int i = 0; i < result.Count; i++)//If I write through Foreach, it gives me an error on lines 85-93 p.s. the error indicates that you cannot change their number while iterating over elements
             {
-                float minDistance = float.MaxValue;
-                int nowIndex = 0;
-                foreach (var target in result)
+                float distanceToNowTarget = DistanceToOwnBase(result[i]);//I take this variable to calculate it once instead of repeated recalculations
+                if (distanceToNowTarget < minDistance)
                 {
-                    float distanceToNowTarget = DistanceToOwnBase(target);
-                    if (distanceToNowTarget < minDistance)
-                    {
-                        minDistance = distanceToNowTarget;
-                        nowIndex = result.FindIndex(x => x == target);
-                    }
+                    minDistance = distanceToNowTarget;
+                    result.Add(result[i]);
                 }
-                result.Add(result[nowIndex]);
                 result.RemoveRange(0, result.Count - 1);
             }
             return result;
+
+            //InvalidOperationException: Collection was modified; enumeration operation may not execute.
+            //System.Collections.Generic.List`1 + Enumerator[T].MoveNextRare()(at < 834b2ded5dad441e8c7a4287897d63c7 >:0)
+            //System.Collections.Generic.List`1 + Enumerator[T].MoveNext()(at < 834b2ded5dad441e8c7a4287897d63c7 >:0)
+            //UnitBrains.Player.SecondUnitBrain.SelectTargets()(at Assets / Scripts / UnitBrains / Player / SecondUnitBrain.cs:55)
+            //UnitBrains.BaseUnitBrain.GetProjectiles()(at Assets / Scripts / UnitBrains / BaseUnitBrain.cs:49)
+            //Model.Runtime.Unit.Attack()(at Assets / Scripts / Model / Runtime / Unit.cs:65)
+            //Model.Runtime.Unit.Update(System.Single deltaTime, System.Single time)(at Assets / Scripts / Model / Runtime / Unit.cs:57)
+            //Controller.SimulationController.Update(System.Single deltaTime)(at Assets / Scripts / Controller / SimulationController.cs:33)
+            //Utilities.TimeUtil.FixedUpdate()(at Assets / Scripts / Utilities / TimeUtil.cs:58)
+
             ///////////////////////////////////////
         }
 
